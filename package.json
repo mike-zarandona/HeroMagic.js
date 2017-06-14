@@ -1,0 +1,28 @@
+{
+  "name": "heromagic.js",
+  "version": "1.0.0",
+  "description": "A jQuery visual effects plugin for fades, slides, and transitions.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mike-zarandona/HeroMagic.js.git"
+  },
+  "author": "Mike Zarandona <mike.zarandona@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mike-zarandona/HeroMagic.js/issues"
+  },
+  "homepage": "https://github.com/mike-zarandona/HeroMagic.js#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.11",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-less": "^3.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.1.2",
+    "less-plugin-clean-css": "^1.5.1"
+  }
+}

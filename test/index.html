@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <style id="heromagic-styles">
+            /*my*/body/*is ready*/ {
+                position: relative;
+                z-index: 0;
+                background-color: #f4f4f7;
+                background: url('bg.png');
+                background-repeat: repeat;
+                padding-bottom: 110vh;
+
+                & > * {
+                    z-index: 10;
+                }
+            }
+
+            h1 {
+                margin-bottom: 110vh;
+            }
+
+
+            /* HeroMagic.js Styles */
+            [data-appear] {
+                opacity: 0;
+            }
+
+            [data-appear],
+            .hm-fade-in,
+            .hm-fade-out {
+                will-change: opacity;
+                pointer-events: none;
+            }
+
+            [data-move],
+            .hm-scroll-in,
+            .hm-scroll-out {
+                will-change: transform;
+                pointer-events: none;
+            }
+
+            [data-appear][data-move],
+            .hm-fade-in.hm-scroll-out,
+            .hm-fade-out.hm-scroll-in {
+                will-change: opacity, transform;
+                pointer-events: none;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>HeroMagic.js</h1>
+
+        <h2 class="hm-fade-in hm-scroll-in hm-fade-out hm-scroll-out" data-move="0, 0, 1000ms, ease-in-out, 0ms">Move</h2>
+
+        <h3 class="hm-fade-in hm-scroll-in hm-fade-out hm-scroll-out" data-appear="1000ms, ease-in-out, 500ms">Appear</h2>
+
+        <h4 class="hm-fade-in hm-scroll-in hm-fade-out hm-scroll-out" data-appear="1000ms, ease-in-out, 1000ms" data-move="0, 0, 1000ms, ease-in-out, 1000ms">Appear + Move</h2>
+
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
+        <script src="./dist/jquery.heromagic.min.js"></script>
+        <script>
+            $(window).on('load', function() {
+                var $hm = $('body').heroMagic({
+                    addStyles: false,
+                });
+            });
+        </script>
+    </body>
+</html>

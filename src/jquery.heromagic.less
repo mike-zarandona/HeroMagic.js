@@ -1,0 +1,29 @@
+/*!
+**********************************************************
+* HeroMagic.js
+* https://github.com/mike-zarandona/HeroMagic.js
+*
+* Version:       1.0.0
+* Author:        Mike Zarandona | @mikezarandona
+* Release:       [Jun 14 2017]
+**********************************************************
+*/
+
+[data-appear],
+.hm-fade-in,
+.hm-fade-out {
+    opacity: 0;
+    will-change: opacity;
+}
+
+[data-move],
+.hm-scroll-in,
+.hm-scroll-out {
+    will-change: transform;
+}
+
+[data-appear][data-move],
+.hm-fade-in.hm-scroll-out,
+.hm-fade-out.hm-scroll-in {
+    will-change: opacity, transform;
+}
