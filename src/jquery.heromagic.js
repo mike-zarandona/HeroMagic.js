@@ -56,13 +56,12 @@
 
             // Optionally add scrollpoint indicators for debugging
             if ( options.debugScrollPoints ) {
-                console.log('in');
                 var debugStyles = '';
 
                 debugStyles += 'body{position:relative;}';
 
-                debugStyles += 'body::before{content:"";display:block;position:fixed;top:' + options.scrollOutDistance + 'px;left:0;width:100%;border-bottom:1px dashed red;}';
-                debugStyles += 'body::after{content:"";display:block;position:fixed;bottom:' + options.scrollInDistance + 'px;left:0;width:100%;border-bottom:1px dashed red;}';
+                debugStyles += 'body::before{content:"";display:block;position:fixed;z-index:99999;top:' + options.scrollOutDistance + 'px;left:0;width:100%;border-bottom:1px dashed red;}';
+                debugStyles += 'body::after{content:"";display:block;position:fixed;z-index:99999;bottom:' + options.scrollInDistance + 'px;left:0;width:100%;border-bottom:1px dashed red;}';
 
                 $('head').append('<style id="heromagic-styles-debug" type="text/css">' + debugStyles + '</style>');
             }
