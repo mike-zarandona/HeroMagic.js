@@ -1,6 +1,6 @@
 {
   "name": "heromagic.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A jQuery visual effects plugin for fades, slides, and transitions.",
   "main": "gulpfile.js",
   "scripts": {

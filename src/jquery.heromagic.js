@@ -3,12 +3,10 @@
 * HeroMagic.js
 * https://github.com/mike-zarandona/HeroMagic.js
 *
-* Version:       1.0.0
+* Version:       1.0.1
 * Author:        Mike Zarandona | @mikezarandona
-* Release:       Jun 14 2017
-*                Initial release
-*
-* Reqs:          jQuery
+* Release:       Jun 20 2017
+*                Initial positioning fix
 **********************************************************
 */
 
@@ -89,7 +87,6 @@
                          .data('thisAppearDelay', thisAppearDelay)
                     ;
 
-
                     // set the transition in preparation for the move
                     // - if transition already has a rule, persist it
                     if ( $this.css('transition') !== undefined ) {
@@ -113,7 +110,6 @@
                         thisMoveDelay = moveValues[4].trim() || options.defaults.moveDelay
                     ;
 
-
                     // save the data values to the element for potential processing later
                     $this.data('thisMoveX', thisMoveX)
                          .data('thisMoveY', thisMoveY)
@@ -122,10 +118,17 @@
                          .data('thisMoveDelay', thisMoveDelay)
                     ;
 
-
                     // set position to `relative` ONLY if not already set or set to absolute
                     if ( $this.css('position') !== 'relative' && $this.css('position') !== 'absolute' && $this.css('position') !== 'fixed' ) {
                         $this.css('position', 'relative');
+                    }
+
+                    // set up some preliminary offsets based on movements so elements finish animating into the correct position
+                    if ( thisMoveY !== 0 ) {
+                        $this.css('bottom', thisMoveY);
+                    }
+                    if ( thisMoveX !== 0 ) {
+                        $this.css('right', thisMoveX);
                     }
 
                     // set the transition in preparation for the move
@@ -180,16 +183,6 @@
                         // remove the transition after the initial effect
                         $this.on('transitionend.move', function(e) {
                             $this.css('transition', 'none');
-
-                            // reset the transition into the final positioning now that the transition has been removed
-                            if ( parseInt($this.data('thisMoveY')) < 0 ) {
-                                $this.css( 'top', $this.data('thisMoveY') );
-                            }
-                            else if ( parseInt($this.data('thisMoveY')) > 0 ) {
-                                $this.css( 'bottom', $this.data('thisMoveY') );
-                            }
-
-                            $this.css( 'transform', 'translate3d(' + $this.data('thisMoveX') + ', 0, 0)');
                         });
                     }, $this.data('thisMoveDelay'));
                 }
