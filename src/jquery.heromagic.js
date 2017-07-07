@@ -3,10 +3,10 @@
 * HeroMagic.js
 * https://github.com/mike-zarandona/HeroMagic.js
 *
-* Version:       1.0.1
+* Version:       1.0.2
 * Author:        Mike Zarandona | @mikezarandona
-* Release:       Jun 20 2017
-*                Initial positioning fix
+* Release:       Jul 07 2017
+*                Complex transition positioning fix
 **********************************************************
 */
 
@@ -59,7 +59,7 @@
                 debugStyles += 'body{position:relative;}';
 
                 debugStyles += 'body::before{content:"";display:block;position:fixed;z-index:99999;top:' + options.scrollOutDistance + 'px;left:0;width:100%;border-bottom:1px dashed red;}';
-                debugStyles += 'body::after{content:"";display:block;position:fixed;z-index:99999;bottom:' + options.scrollInDistance + 'px;left:0;width:100%;border-bottom:1px dashed red;}';
+                debugStyles += 'body::after{content:"";display:block;position:fixed;z-index:99999;bottom:' + options.scrollInDistance + 'px;left:0;width:100%;border-top:1px dashed red;}';
 
                 $('head').append('<style id="heromagic-styles-debug" type="text/css">' + debugStyles + '</style>');
             }
@@ -169,7 +169,7 @@
                         $this.css('opacity', '1');
 
                         // remove the transition after the initial effect
-                        $this.on('transitionend.appear', function(e) {
+                        $this.one('transitionend.appear', function(e) {
                             $this.css('transition', 'none');
                         });
                     }, $this.data('thisAppearDelay'));
@@ -180,9 +180,29 @@
                     setTimeout(function() {
                         $this.css('transform', 'translate3d(' + $this.data('thisMoveX') + ', ' + $this.data('thisMoveY') + ', 0');
 
-                        // remove the transition after the initial effect
-                        $this.on('transitionend.move', function(e) {
+                        // remove the transition + resolve vertical positioning after the initial effect
+                        $this.one('transitionend.move', function(e) {
                             $this.css('transition', 'none');
+
+                            var thisTop = $this.css('top'),
+                                thisBottom = $this.css('bottom')
+                            ;
+
+                            // both in use (or not in use) - use `top`
+                            if ( (thisTop !== 'auto' && thisBottom !== 'auto') || (thisTop === 'auto' && thisBottom === 'auto') ) {
+                                $this.css('top', parseInt(thisTop) + parseInt($this.data('thisMoveY')) + 'px');
+                            }
+                            // `top` in use
+                            else if ( thisTop !== 'auto' && thisBottom === 'auto' ) {
+                                $this.css('top', parseInt($this.css('top')) + parseInt($this.data('thisMoveY')) + 'px');
+                            }
+                            // `bottom` in use
+                            else if ( thisBottom !== 'auto' && thisTop === 'auto' ) {
+                                $this.css('bottom', parseInt($this.css('bottom')) + parseInt($this.data('thisMoveY')) + 'px');
+                            }
+
+                            // reset the 3d translate
+                            $this.css('transform', 'translate3d(' + $this.data('thisMoveX') + ', 0, 0)');
                         });
                     }, $this.data('thisMoveDelay'));
                 }
